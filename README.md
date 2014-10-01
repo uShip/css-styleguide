@@ -14,8 +14,7 @@
   1. [Commas](#commas)
   1. [Semicolons](#semicolons)
   1. [Naming Conventions](#naming-conventions)
-  1. [ES5 Compatibility](#css3)
-  1. [Testing](#testing)
+  1. [CSS3 Compatibility](#css3)
   1. [Performance](#performance)
   1. [Resources](#resources)
   1. [In the Wild](#in-the-wild)
@@ -1276,145 +1275,6 @@
     **[[⬆]](#TOC)**
 
 
-## <a name='accessors'>Accessors</a>
-
-  - Accessor functions for properties are not required
-  - If you do make accessor functions use getVal() and setVal('hello')
-
-    ```javascript
-    // bad
-    dragon.age();
-
-    // good
-    dragon.getAge();
-
-    // bad
-    dragon.age(25);
-
-    // good
-    dragon.setAge(25);
-    ```
-
-  - If the property is a boolean, use isVal() or hasVal()
-
-    ```javascript
-    // bad
-    if (!dragon.age()) {
-        return false;
-    }
-
-    // good
-    if (!dragon.hasAge()) {
-        return false;
-    }
-    ```
-
-  - It's okay to create get() and set() functions, but be consistent.
-
-    ```javascript
-    function Jedi (options) {
-        options || (options = {});
-        var lightsaber = options.lightsaber || 'blue';
-        this.set('lightsaber', lightsaber);
-    }
-
-    Jedi.prototype.set = function (key, val) {
-        this[key] = val;
-    };
-
-    Jedi.prototype.get = function (key) {
-        return this[key];
-    };
-    ```
-
-    **[[⬆]](#TOC)**
-
-
-## <a name='constructors'>Constructors</a>
-
-  - Assign methods to the prototype object, instead of overwriting the prototype with a new object. Overwriting the prototype makes inheritance impossible: by resetting the prototype you'll overwrite the base!
-
-    ```javascript
-    function Jedi () {
-        console.log('new jedi');
-    }
-
-    // bad
-    Jedi.prototype = {
-        fight: function fight () {
-            console.log('fighting');
-        },
-
-        block: function block () {
-            console.log('blocking');
-        }
-    };
-
-    // good
-    Jedi.prototype.fight = function fight () {
-        console.log('fighting');
-    };
-
-    Jedi.prototype.block = function block () {
-        console.log('blocking');
-    };
-    ```
-
-  - Methods can return `this` to help with method chaining.
-
-    ```javascript
-    // bad
-    Jedi.prototype.jump = function () {
-        this.jumping = true;
-        return true;
-    };
-
-    Jedi.prototype.setHeight = function (height) {
-        this.height = height;
-    };
-
-    var luke = new Jedi();
-    luke.jump(); // => true
-    luke.setHeight(20) // => undefined
-
-    // good
-    Jedi.prototype.jump = function () {
-        this.jumping = true;
-        return this;
-    };
-
-    Jedi.prototype.setHeight = function (height) {
-        this.height = height;
-        return this;
-    };
-
-    var luke = new Jedi();
-
-    luke.jump()
-      .setHeight(20);
-    ```
-
-
-  - It's okay to write a custom toString() method, just make sure it works successfully and causes no side effects.
-
-    ```javascript
-    function Jedi (options) {
-        options || (options = {});
-        this.name = options.name || 'no name';
-    }
-
-    Jedi.prototype.getName = function getName () {
-        return this.name;
-    };
-
-    Jedi.prototype.toString = function toString () {
-        return 'Jedi - ' + this.getName();
-    };
-    ```
-
-    **[[⬆]](#TOC)**
-
-
 ## <a name='events'>Events</a>
 
   - When attaching data payloads to events (whether DOM events or something more proprietary like Backbone events), pass a hash instead of a raw value. This allows a subsequent contributor to add more data to the event payload without finding and updating every handler for the event. For example, instead of:
@@ -1478,86 +1338,11 @@
     **[[⬆]](#TOC)**
 
 
-## <a name='jquery'>jQuery</a>
-
-  - Don't prefix jQuery object variables with a `$`.
-
-    ```javascript
-    // bad
-    var $sidebar = $('.sidebar');
-
-    // good
-    var sidebar = $('.sidebar');
-    ```
-
-  - Cache jQuery lookups.
-
-    ```javascript
-    // bad
-    function setSidebar () {
-        $('.sidebar').hide();
-
-        // ...stuff...
-
-        $('.sidebar').css({
-            'background-color': 'pink'
-        });
-    }
-
-    // good
-    function setSidebar () {
-        var sidebar = $('.sidebar');
-        sidebar.hide();
-
-        // ...stuff...
-
-        sidebar.css({
-            'background-color': 'pink'
-        });
-    }
-    ```
-
-  - For DOM queries use Cascading `$('.sidebar ul')` or parent > child `$('.sidebar > ul')`. [jsPerf](http://jsperf.com/jquery-find-vs-context-sel/16)
-  - Use `find` with scoped jQuery object queries.
-
-    ```javascript
-    // bad
-    $('ul', '.sidebar').hide();
-
-    // bad
-    $('.sidebar').find('ul').hide();
-
-    // good
-    $('.sidebar ul').hide();
-
-    // good
-    $('.sidebar > ul').hide();
-
-    // good
-    sidebar.find('ul').hide();
-    ```
-
-    **[[⬆]](#TOC)**
-
-
 ## <a name='css3'>CSS3 Compatibility</a>
 
   - Refer to this [CSS3 compatibility table](http://caniuse.com/#cats=CSS)
 
   **[[⬆]](#TOC)**
-
-
-## <a name='testing'>Testing</a>
-
-  - **Yup.**
-
-    ```javascript
-    function () {
-        return true;
-    }
-    ```
-
-    **[[⬆]](#TOC)**
 
 
 ## <a name='performance'>Performance</a>
