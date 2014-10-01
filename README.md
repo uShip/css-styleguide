@@ -6,12 +6,9 @@
 
   1. [Syntax](#syntax)
   1. [Naming](#naming)
-  1. [Strings](#strings)
   1. [CSS3 Compatibility](#css3)
   1. [Performance](#performance)
   1. [Resources](#resources)
-  1. [In the Wild](#in-the-wild)
-  1. [The CSS Style Guide Guide](#guide-guide)
   1. [License](#license)
 
 
@@ -138,6 +135,17 @@
     ```
 
 ## <a name='naming'>Naming</a>
+
+- Use a `js-` prefix for elements that will be selected and used in Javascript. This lets developers know not to remove or modify these, or risk breaking JS. **Do not style these classes.**
+
+    ```html
+    <!-- bad -->
+    <div class="user-avatar"></div>
+
+    <!-- good -->
+    <div class="js-user-avatar"></div>
+    ```
+
 - Use semantic class names and IDs. Don't descibe what the element looks like – describe its purpose.
 
     ```css
@@ -152,7 +160,33 @@
     }
     ```
 
-- Avoid deeply nesting selectors. This results in very specific rules, which are both not reusable and impossible to override
+- Use [BEM naming conventions](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/) - 'block / element / modifier'. See the linked article for a more detailed overview.
+
+    ```css
+    /* bad */
+    .user-panel {
+
+    }
+    .field {
+
+    }
+    .active {
+
+    }
+
+    /* good */
+    .user-panel {  /* block */
+
+    }
+    .user-panel__field {  /* element */
+
+    }
+    .user-panel--active {  /* modifier or state */
+
+    }
+    ```
+
+- Avoid deeply nesting selectors. This results in very specific rules, which are both not reusable and impossible to override. See BEM guidelines above for a better approach.
 
     ```css
     /* bad */
@@ -180,63 +214,9 @@
     }
     ```
 
-## <a name='variables'>Variables</a>
+  **[[⬆]](#TOC)**
 
-    **[[⬆]](#TOC)**
-
-
-## <a name='naming-conventions'>Naming Conventions</a>
-
-  - Use camelCase when naming objects, functions, and instances
-
-    ```javascript
-    // bad
-    var OBJEcttsssss = {};
-    var this_is_my_object = {};
-    function c () {};
-    var u = new user({
-        name: 'Bob Parr'
-    });
-
-    // good
-    var thisIsMyObject = {};
-    function thisIsMyFunction () {};
-    var user = new User({
-        name: 'Bob Parr'
-    });
-    ```
-
-  - Use PascalCase when naming constructors or classes
-
-    ```javascript
-    // bad
-    function user (options) {
-        this.name = options.name;
-    }
-
-    var bad = new user({
-        name: 'nope'
-    });
-
-    // good
-    function User (options) {
-        this.name = options.name;
-    }
-
-    var good = new User({
-        name: 'yup'
-    });
-    ```
-
-    **[[⬆]](#TOC)**
-
-## <a name='modules'>Modules</a>
-
-  - SCSS modules?
-
-    **[[⬆]](#TOC)**
-
-
+  
 ## <a name='css3'>CSS3 Compatibility</a>
 
   - Refer to this [CSS3 compatibility table](http://caniuse.com/#cats=CSS)
@@ -256,7 +236,7 @@
 
 ## <a name='resources'>Resources</a>
 
-**Other Style guides**
+**Other style guides**
 
   - [BEM (block, element, modifier)](http://csswizardry.com/2013/01/mindbemding-getting-your-head-round-bem-syntax/)
   - [Medium.com's CSS is actually pretty f***ing good.](https://medium.com/@fat/mediums-css-is-actually-pretty-fucking-good-b8e2a6c78b06)
@@ -270,10 +250,6 @@
   - [CSS Wizardry](http://csswizardry.com/)
 
   **[[⬆]](#TOC)**
-
-## <a name='guide-guide'>The JavaScript Style Guide Guide</a>
-
-  - [Reference](https://github.com/airbnb/javascript/wiki/The-JavaScript-Style-Guide-Guide)
 
 
 ## <a name='license'>License</a>
