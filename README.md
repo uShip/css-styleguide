@@ -12,8 +12,6 @@
   1. [Comments](#comments)
   1. [Whitespace](#whitespace)
   1. [Commas](#commas)
-  1. [Semicolons](#semicolons)
-  1. [Naming Conventions](#naming-conventions)
   1. [CSS3 Compatibility](#css3)
   1. [Performance](#performance)
   1. [Resources](#resources)
@@ -92,14 +90,36 @@
     }
     ```
 
-- Indent with 4 spaces (not hard tabs)
+- Indent with 4 spaces (not hard tabs). If you're using [Sublime Text](http://www.sublimetext.com/) as your editor, you can enable a setting to have it use spaces when pressing tab.
     ```css
     /* bad */
-    h6 
-    /* good */
+    .input {
+      margin: 0;
+      padding: 4px;
+    }
 
+    /* good */
+    .input {
+        margin: 0;
+        padding: 4px;
+    }
     ```
+
 - Each style key/value pair should be on a new line
+    ```css
+    /* bad */
+    .input {
+      margin: 0; padding: 4px; color: rgb(33, 33, 33);
+    }
+
+    /* good */
+    .input {
+        margin: 0;
+        padding: 4px;
+        color: rgb(33, 33, 33);
+    }
+    ```
+
 - Use single quotes for quoted values
 
     ```css
@@ -1065,106 +1085,6 @@
         'Batman',
         'Superman'
     ];
-    ```
-
-    **[[⬆]](#TOC)**
-
-
-## <a name='semicolons'>Semicolons</a>
-
-  - **Yup.** Javascript will automatically insert semicolons -- that it's they're optional in the strict sense. But leaving out semicolons can cause some pernicious bugs, particularly when multiple people are working on the same code, or when not everyone is an expert on the edge case rules for semicolon insertion. So for consistency's sake, always use them.
-
-    ```javascript
-    // bad
-    (function () {
-        var name = 'Skywalker'
-        return name
-    })()
-
-    // good
-    (function () {
-        var name = 'Skywalker';
-        return name;
-    })();
-
-    // good
-    ;(function () {
-        var name = 'Skywalker';
-        return name;
-    })();
-    ```
-
-    **[[⬆]](#TOC)**
-
-
-## <a name='type-coercion'>Type Casting & Coercion</a>
-
-  - Perform type coercion at the beginning of the statement.
-  - Strings:
-
-    ```javascript
-    //  => this.reviewScore = 9;
-
-    // bad
-    var totalScore = this.reviewScore + '';
-
-    // good
-    var totalScore = '' + this.reviewScore;
-
-    // bad
-    var totalScore = '' + this.reviewScore + ' total score';
-
-    // good
-    var totalScore = this.reviewScore + ' total score';
-    ```
-
-  - Use `parseInt` for Numbers and always with a radix for type casting.
-
-    ```javascript
-    var inputValue = '4';
-
-    // bad
-    var val = new Number(inputValue);
-
-    // bad
-    var val = +inputValue;
-
-    // bad
-    var val = inputValue >> 0;
-
-    // bad
-    var val = parseInt(inputValue);
-
-    // good
-    var val = parseInt(inputValue, 10);
-    ```
-
-  - If for whatever reason you are doing something wild and `parseInt` is your bottleneck and need to use Bitshift for [performance reasons](http://jsperf.com/coercion-vs-casting/3), leave a comment explaining why and what you're doing.
-  - **Note:** Be careful when using bitshift operations. Numbers are represented as [64-bit values](http://es5.github.io/#x4.3.19), but Bitshift operations always return a 32-bit integer ([source](http://es5.github.io/#x11.7)). Bitshift can lead to unexpected behavior for integer values larger than 32 bits. [Discussion](https://github.com/airbnb/javascript/issues/109)
-
-    ```javascript
-    // good
-    /**
-     * parseInt was the reason my code was slow.
-     * Bitshifting the String to coerce it to a
-     * Number made it a lot faster.
-     */
-    var val = inputValue >> 0;
-    ```
-
-  - Booleans:
-
-    ```javascript
-    var age = 0;
-
-    // bad
-    var hasAge = new Boolean(age);
-
-    // good
-    var hasAge = Boolean(age);
-
-    // good
-    var hasAge = !!age;
     ```
 
     **[[⬆]](#TOC)**
