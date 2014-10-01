@@ -27,12 +27,12 @@
 - End all property/value pairs with a semicolon
 
     ```css
-    // bad
+    /* bad */
     h3 {
         margin-top: 0
     }
 
-    // good
+    /* good */
     h3 {
         margin-top: 0;
     }
@@ -41,13 +41,13 @@
 - Keep 0-values unitless (no px or em)
 
     ```css
-    // bad
+    /* bad */
     .nav-description {
         margin: 0px;
         padding: 0px;
     }
 
-    // good
+    /* good */
     .nav-description {
         margin: 0;
         padding: 0;
@@ -57,14 +57,14 @@
 - Put a single space between keys and value
 
     ```css
-    // bad
+    /* bad */
     .callout-icon {
         max-height: 80px;
         width:      60px;
         background: #333;
     }
 
-    // good
+    /* good */
     .callout-icon {
         max-height: 80px;
         width: 60px;
@@ -76,14 +76,14 @@
 - Stack combined selector declaration with a new line
     
     ```css
-    // bad
+    /* bad */
     h1, h2, h3 { 
         margin: 10px 0;
         padding: 0;
         color: #000;
     }
 
-    // good
+    /* good */
     h1, 
     h2, 
     h3 { 
@@ -95,37 +95,50 @@
 
 - Indent with 4 spaces (not hard tabs)
     ```css
-    // bad
+    /* bad */
     h6 
-    // good
+    /* good */
 
     ```
 - Each style key/value pair should be on a new line
 - Use single quotes for quoted values
 
     ```css
-    // bad
+    /* bad */
     p {
         font-family: "Comic Sans", Verdana;
     }
 
-    // good
+    /* good */
     p {
         font-family: 'Comic Sans', Verdana;
     }
     ```
 
 ## <a name='naming'>Naming</a>
-- Use semantic class names and IDs (don't descibe what the element looks like – describe its purpose: ".error"  rather than ".red-text")
+- Use semantic class names and IDs. Don't descibe what the element looks like – describe its purpose.
+
+    ```css
+    /* bad */
+    .red-text {
+        color: rgb(255, 0, 0);
+    }
+
+    /* good */
+    .error {
+        color: rgb(255, 0, 0);
+    }
+    ```
+
 - Avoid deeply nesting selectors. This results in very specific rules, which are both not reusable and impossible to override (.article .sidebar .caption {} is an example of a deeply-nested rule)
 
     ```css
-    // bad
+    /* bad */
     .article .sidebar .caption {
 
     }
 
-    // good
+    /* good */
     .article__sidebar__caption {
 
     }
@@ -134,12 +147,12 @@
 - Don't use IDs for styling. They are overly specific and difficult to override. Use classes for almost all styling – class names are the contract between your HTML and CSS.
 
     ```css
-    // bad
+    /* bad */
     #widget {
 
     }
 
-    // good
+    /* good */
     .widget {
 
     }
